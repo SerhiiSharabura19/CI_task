@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+#Playwright reports
+playwright-report/
+
+# Test results
+test-results/
+
+# VS Code settings
+.vscode/
+
+# Logs
+npm-debug.log*
+
+# Environment variables
+.env
+
+# Build output
+dist/
+build/

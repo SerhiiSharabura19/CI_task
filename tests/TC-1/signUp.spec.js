@@ -1,4 +1,4 @@
-import { test } from '../../tests/_fixtures/fixturesAuth';
+import { test } from '../../tests/_fixtures/fixturesPageInstances';
 import { generateUser } from '../../src/helpers/genegateUser';
 import { VALID_NAMES, VALID_EMAILS } from '../../src/helpers/userCredentialsDataset';
 

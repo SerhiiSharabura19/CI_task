@@ -2,9 +2,12 @@ import { generateUser } from "../../src/helpers/genegateUser";
 import { test as base } from '@playwright/test';
 
 export const test = base.extend<{
-  validUser;
+  loggedInUser;
 }>({
-
+  loggedInUser: async ({ page }, use) => {
+      
+  
+      await use(loggedInUser);
+    },
 });
 
-export const expect = test.expect;

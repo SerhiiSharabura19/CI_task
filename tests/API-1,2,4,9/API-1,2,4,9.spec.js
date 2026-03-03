@@ -1,4 +1,4 @@
-import { test } from '../../tests/_fixtures/fixturesAuth';
+import { test } from '../../tests/_fixtures/fixturesPageInstances';
 
 test('API-1 Verify "getAllProducts" API method', async({apiMethods}) => {
   const response = await apiMethods.getAllProducts();

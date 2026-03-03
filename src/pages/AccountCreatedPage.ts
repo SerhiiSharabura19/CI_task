@@ -20,13 +20,6 @@ export class AccountCreatedPage {
     });
   }
 
-  async waitForAccountCreatedPage() {
-  await test.step(`Wait until the Account Created page is loaded`, async() => {
-    //await this.page.waitForURL(this.url);
-    //await this.page.waitForLoadState('load');
-  });
-}
-
 async clickContinueBtn() {
     await test.step(`Click [Continue] button`, async() => {
       await this.continueBtn.click();

@@ -65,7 +65,6 @@ async assertMrRadioBtnIsVisible() {
 
 async waitForAccountInformationPage() {
   await test.step(`Wait until the Account Information page is loaded`, async() => {
-    //await this.page.waitForURL('/signup');
     await this.page.waitForLoadState('load');
   });
 }

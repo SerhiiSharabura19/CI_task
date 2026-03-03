@@ -40,19 +40,19 @@ export class CartPage {
 
   async assertPriceOfProduct(serialNumber: number, price: string) {
     await test.step(`Verify the ${serialNumber} product price in the cart`, async () => {
-    await expect(this.cartPrice.nth(serialNumber)).toContainText(price);
+    await expect(this.cartPrice.nth(serialNumber)).toHaveText(price);
     });
   }
 
   async assertQuantityOfProduct(serialNumber: number, quantity: string) {
     await test.step(`Verify the ${serialNumber} product quantity in the cart`, async () => {
-    await expect(this.cartQuantity.nth(serialNumber)).toContainText(quantity);
+    await expect(this.cartQuantity.nth(serialNumber)).toHaveText(quantity);
     });
   }
 
   async assertTotalPriceOfProduct(serialNumber: number, total: string) {
     await test.step(`Verify the ${serialNumber} product total price in the cart`, async () => {
-    await expect(this.cartTotal.nth(serialNumber)).toContainText(total);
+    await expect(this.cartTotal.nth(serialNumber)).toHaveText(total);
     });
   }
 

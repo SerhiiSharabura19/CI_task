@@ -1,4 +1,5 @@
 import { test } from '../../tests/_fixtures/fixturesAuth';
+import { products } from '../helpers/productAttributes';
 
 test('TC-12: Add Products in Cart', async({
   homePage,
@@ -15,12 +16,12 @@ test('TC-12: Add Products in Cart', async({
     await productsPage.clickviewCartLink();
     await cartPage.assertFirstProduct();
     await cartPage.assertSecondProduct();
-    await cartPage.assertPriceOfProduct(0, 'Rs. 500');
-    await cartPage.assertQuantityOfProduct(0, '1');
-    await cartPage.assertTotalPriceOfProduct(0, 'Rs. 500');
-    await cartPage.assertPriceOfProduct(1, 'Rs. 400');
-    await cartPage.assertQuantityOfProduct(1, '1');
-    await cartPage.assertTotalPriceOfProduct(1, 'Rs. 400');
+    await cartPage.assertPriceOfProduct(products.product1.serialNumber, products.product1.price);
+    await cartPage.assertQuantityOfProduct(products.product1.serialNumber, products.product1.quantity);
+    await cartPage.assertTotalPriceOfProduct(products.product1.serialNumber, products.product1.total);
+    await cartPage.assertPriceOfProduct(products.product2.serialNumber, products.product2.price);
+    await cartPage.assertQuantityOfProduct(products.product2.serialNumber, products.product2.quantity);
+    await cartPage.assertTotalPriceOfProduct(products.product2.serialNumber, products.product2.total);
   }
 )
 

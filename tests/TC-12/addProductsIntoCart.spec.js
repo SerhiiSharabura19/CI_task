@@ -9,7 +9,7 @@ test('TC-12: Add Products in Cart by logged out user', async({
     await homePage.open();
     await homePage.assertCarouselIsVisible();
     await homePage.clickProductsLink();
-    if(await productsPage.assertAdIsVisible()) {
+    if(await productsPage.isAdVisible()) {
       await productsPage.closeAd();
     };
     await productsPage.hoverOverProduct(products.product1.serialNumber);

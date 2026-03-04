@@ -35,6 +35,10 @@ async assertAdIsVisible() {
   });
 }
 
+async isAdVisible(): Promise<boolean> {
+  return await this.adCloseBtn.isVisible();
+}
+
 async closeAd() {
   await test.step(`Close ad modal`, async () => {
     await this.adCloseBtn.click();

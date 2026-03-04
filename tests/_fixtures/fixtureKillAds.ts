@@ -23,6 +23,21 @@ export const test = base.extend<Fixtures>({
     await context.unroute(
       /googlesyndication|doubleclick|googleads|adsbygoogle|gstatic/
     );
+
+    await context.addInitScript(() => {
+  const removeAds = () => {
+    document
+      .querySelectorAll('iframe[id^="aswift"], ins.adsbygoogle')
+      .forEach(el => el.remove());
+  };
+
+  new MutationObserver(removeAds).observe(document, {
+    childList: true,
+    subtree: true,
+  });
+
+  removeAds();
+});
   },
 });
 

@@ -19,7 +19,6 @@ export class ProductsPage {
     this.secondProductAddToCartBtn = page.locator('[data-product-id="2"]').nth(1);
     this.continueShoppingBtn = page.locator('.btn.btn-success.close-modal.btn-block');
     this.viewCartLink = page.locator('[href="/view_cart"]').filter({ hasText: 'View Cart' });
-    //this.adCloseBtn = page.getByRole('button', {name: 'Close'});
     this.adCloseBtn = page.locator('[aria-label="Close ad"]');
   }
 
@@ -35,7 +34,7 @@ async assertAdIsVisible() {
   });
 }
 
-async isAdVisible(): Promise<boolean> {
+/*async isAdVisible(): Promise<boolean> {
   return await this.adCloseBtn.isVisible();
 }
 
@@ -43,7 +42,7 @@ async closeAd() {
   await test.step(`Close ad modal`, async () => {
     await this.adCloseBtn.click();
   });
-}
+}*/
 
 async hoverOverProduct(number: number) {
   await test.step(`Hover over the ${number} product`, async () => {

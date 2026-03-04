@@ -2,16 +2,15 @@ import { test } from '../../tests/_fixtures/fixtures';
 import { products } from '../../src/helpers/productAttributes' 
 
 test('TC-12: Add Products in Cart by logged out user', async({
-  //killAds: _killAds,
   homePage,
   productsPage,
   cartPage }) => {
     await homePage.open();
     await homePage.assertCarouselIsVisible();
     await homePage.clickProductsLink();
-    if(await productsPage.isAdVisible()) {
-      await productsPage.closeAd();
-    };
+    // if(await productsPage.isAdVisible()) {
+    //   await productsPage.closeAd();
+    // };
     await productsPage.hoverOverProduct(products.product1.serialNumber);
     await productsPage.addFirstProductToCart();
     await productsPage.clickContinueShoppingBtn();
@@ -39,9 +38,6 @@ test('TC-12: Add Products in Cart by logged in user', async({
     await homePage.open();
     await homePage.assertCarouselIsVisible();
     await homePage.clickProductsLink();
-    // if(await productsPage.isAdVisible()) {
-    //   await productsPage.closeAd();
-    // };
     await productsPage.hoverOverProduct(products.product1.serialNumber);
     await productsPage.addFirstProductToCart();
     await productsPage.clickContinueShoppingBtn();

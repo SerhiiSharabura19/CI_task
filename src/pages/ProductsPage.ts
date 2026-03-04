@@ -28,9 +28,9 @@ async open() {
 
 async hoverOverProduct(number: number) {
   await test.step(`Hover over the ${number} product`, async () => {
-   /* await this.page.route(/(doubleclick|googlesyndication|googleads)/, route =>
+    await this.page.route(/(doubleclick|googlesyndication|googleads)/, route =>
     route.abort());
-    await this.page.addInitScript(() => {
+    /*await this.page.addInitScript(() => {
       const style = document.createElement('style');
       style.innerHTML = `
         ins.adsbygoogle,

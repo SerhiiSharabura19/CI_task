@@ -28,6 +28,8 @@ async open() {
 
 async hoverOverProduct(number: number) {
   await test.step(`Hover over the ${number} product`, async () => {
+    await this.page.route(/(doubleclick|googlesyndication|googleads)/, route =>
+    route.abort());
     await this.product.nth(number).hover();
   });
 }

@@ -1,20 +1,8 @@
 import { test } from '../../tests/_fixtures/fixtures';
 import { products } from '../../src/helpers/productAttributes' 
 
-test.beforeEach(async ({ context }) => {
-  await context.route(
-    /googlesyndication|doubleclick|googleads|adsbygoogle|gstatic/,
-    route => route.abort()
-  );
-  await page.addInitScript(() => {
-    Object.defineProperty(window, 'adsbygoogle', {
-      value: [],
-      writable: false,
-    });
-  });
-});
-
 test('TC-12: Add Products in Cart by logged out user', async({
+  killAds: _killAds,
   homePage,
   productsPage,
   cartPage }) => {

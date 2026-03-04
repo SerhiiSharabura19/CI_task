@@ -20,7 +20,7 @@ export class ProductsPage {
     this.continueShoppingBtn = page.locator('.btn.btn-success.close-modal.btn-block');
     this.viewCartLink = page.locator('[href="/view_cart"]').filter({ hasText: 'View Cart' });
     //this.adCloseBtn = page.getByRole('button', {name: 'Close'});
-    this.adCloseBtn = page.locator('path[stroke="#FAFAFA"]');
+    this.adCloseBtn = page.locator('[aria-label="Close ad"]');
   }
 
 async open() {
@@ -29,15 +29,20 @@ async open() {
   });
 }
 
+async closeAd() {
+  await test.step(`Close ad modal`, async () => {
+    await this.adCloseBtn.click();
+  });
+}
+
 async hoverOverProduct(number: number) {
   await test.step(`Hover over the ${number} product`, async () => {
     await this.page.route(/(doubleclick|googlesyndication|googleads)/, route =>
     route.abort());
     // scroll page down 200px
-    await this.page.evaluate(() => {
-      window.scrollBy(0, 600);
-    });
-    //await this.adCloseBtn.click();
+    // await this.page.evaluate(() => {
+    //   window.scrollBy(0, 600);
+    // });
     await this.product.nth(number).hover();
   });
 }

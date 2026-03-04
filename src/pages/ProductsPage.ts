@@ -34,7 +34,7 @@ async hoverOverProduct(number: number) {
     await this.page.route(/(doubleclick|googlesyndication|googleads)/, route =>
     route.abort());
     // scroll page down 200px
-    await page.evaluate(() => {
+    await this.page.evaluate(() => {
       window.scrollBy(0, 200);
     });
     //await this.adCloseBtn.click();

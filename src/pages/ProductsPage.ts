@@ -30,6 +30,14 @@ async hoverOverProduct(number: number) {
   await test.step(`Hover over the ${number} product`, async () => {
     await this.page.route(/(doubleclick|googlesyndication|googleads)/, route =>
     route.abort());
+    await this.page.addInitScript(() => {
+      const style = document.createElement('style');
+      style.innerHTML = `
+        #card { display: none !important; }
+        iframe[title="Advertisement"] { display: none !important; }`;
+      document.head.appendChild(style);
+    });
+    
     await this.product.nth(number).hover();
   });
 }

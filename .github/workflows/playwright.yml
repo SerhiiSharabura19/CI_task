@@ -8,16 +8,21 @@ on:
 
 jobs:
   test:
+    name: Run ${{ matrix.name }}
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        spec:
-          - tests/TC-1/signUp.spec.js
-          - tests/TC-12/addProductsIntoCart.spec.js
-          - tests/TC-18/viewCategoryProducts.spec.js
-          - tests/API-1,2,4,9/API-1,2,4,9.spec.js
+        include:
+          - name: TC-1
+            spec: tests/TC-1/signUp.spec.js
+          - name: TC-12
+            spec: tests/TC-12/addProductsIntoCart.spec.js
+          - name: TC-18
+            spec: tests/TC-18/viewCategoryProducts.spec.js
+          - name: API
+            spec: tests/API-1,2,4,9/API-1,2,4,9.spec.js
 
     steps:
       - name: Checkout repository
@@ -34,13 +39,13 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright test ${{ matrix.spec }}
+      - name: Run Playwright test
         run: npx playwright test ${{ matrix.spec }}
 
       - name: Upload Playwright Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-${{ matrix.spec }}
+          name: playwright-report-${{ matrix.name }}
           path: playwright-report/
           retention-days: 7

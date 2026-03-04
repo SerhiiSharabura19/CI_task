@@ -38,6 +38,9 @@ test('TC-12: Add Products in Cart by logged in user', async({
     await homePage.open();
     await homePage.assertCarouselIsVisible();
     await homePage.clickProductsLink();
+    if(await productsPage.isAdVisible()) {
+      await productsPage.closeAd();
+    };
     await productsPage.hoverOverProduct(products.product1.serialNumber);
     await productsPage.addFirstProductToCart();
     await productsPage.clickContinueShoppingBtn();

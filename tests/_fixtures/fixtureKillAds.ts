@@ -1,17 +1,28 @@
 import { test as base } from '@playwright/test';
 
-export const test = base.extend({});
+type Fixtures = {
+  killAds: void;
+};
 
-test.beforeEach(async ({ context }) => {
-  await context.route(
-    /googlesyndication|doubleclick|googleads|adsbygoogle|gstatic/,
-    route => route.abort()
-  );
+export const test = base.extend<Fixtures>({
+  killAds: async ({ context }, use) => {
+    await context.route(
+      /googlesyndication|doubleclick|googleads|adsbygoogle|gstatic/,
+      route => route.abort()
+    );
 
-  await context.addInitScript(() => {
-    Object.defineProperty(window, 'adsbygoogle', {
-      value: [],
-      writable: false,
+    await context.addInitScript(() => {
+      Object.defineProperty(window, 'adsbygoogle', {
+        value: [],
+        writable: false,
+      });
     });
-  });
+
+    await use();
+
+    await context.unroute(
+      /googlesyndication|doubleclick|googleads|adsbygoogle|gstatic/
+    );
+  },
 });
+

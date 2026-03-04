@@ -25,27 +25,26 @@ jobs:
             spec: tests/API-1,2,4,9/API-1,2,4,9.spec.js
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      - name: Run Playwright test
-        run: npx playwright test ${{ matrix.spec }}
-
-      - name: Upload Playwright Report
-        if: always()
-        uses: actions/upload-artifact@v4
+      - name: Cache node modules
+        uses: actions/cache@v4
         with:
-          name: playwright-report-${{ matrix.name }}
-          path: playwright-report/
-          retention-days: 7
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+
+      - run: npm ci
+
+      - run: npx playwright install --with-deps
+
+      - run: npx playwright test ${{ matrix.spec }}

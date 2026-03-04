@@ -1,9 +1,7 @@
 import { test as base } from './fixturesPageInstances';
 import { generateUser } from '../../src/helpers/genegateUser';
 
-export const test = base.extend<{
-  user
-}>({
+export const test = base.extend<{ user }>({
   user: async ({
     homePage,
     signUpLoginPage,

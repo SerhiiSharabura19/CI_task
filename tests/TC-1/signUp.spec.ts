@@ -1,6 +1,6 @@
 import { test } from '../_fixtures/fixtures';
 import { generateUser, User } from '../../utils/genegateUser';
-import { VALID_NAMES, VALID_EMAILS } from '../../utils/userCredentialsDataset';
+import { validUserData } from '../../utils/userCredentialsDataset';
 
 let user: User;
 
@@ -42,12 +42,12 @@ test('Successful Sign up of a user', async ({
   await homePage.assertLogoutLinkIsVisible();
 });
 
-test('Verify validation of "Name" and "Email" fields - positive', 
-  async({signUpLoginPage}) => {
-    test.setTimeout(90 * 1000);
-    await signUpLoginPage.open();
-    await signUpLoginPage.verifyCredentials(VALID_NAMES, VALID_EMAILS);
+test.describe('Verify signup validation', () => {
+  validUserData.forEach(({ userName, email, description }) => {
+    test(` of the email with ${description}`, async({signUpLoginPage}) => {
+      await signUpLoginPage.open();
+      await signUpLoginPage.verifyCredentials(userName, email);
+    });
+  });
 });
-
-
 

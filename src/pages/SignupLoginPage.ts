@@ -59,18 +59,15 @@ export class SignUpLoginPage extends BasePage {
     });
   }
 
-  async verifyCredentials(names: Array<string>, emails: Array<string>) {
-    await test.step(`Verify valid combinations of names and emails`, async () => {
-      for (const name of names) {
-        for (const email of emails) {
-          await this.page.goto(this.url);
-          await this.signUpName.fill(name);
-          await this.signUpEmail.fill(email);
-          await this.signUpButton.click();
-          await this.page.waitForLoadState('load');
-          await expect(this.accountInformationTitle).toBeVisible();
-        }
-      }
+  async verifyCredentials(userName: string, email: string) {
+    await test.step(`Verify valid combinations of the name: ${userName},
+       and email: ${email}`, async () => {
+      await this.page.goto(this.url);
+      await this.signUpName.fill(userName);
+      await this.signUpEmail.fill(email);
+      await this.signUpButton.click();
+      await this.page.waitForLoadState('load');
+      await expect(this.accountInformationTitle).toBeVisible();
     });
   }
 }

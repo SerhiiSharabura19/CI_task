@@ -61,8 +61,9 @@ jobs:
 
       - name: Upload Playwright report
         if: always()
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
+          name: playwright-report-${{ matrix.name }}
           path: playwright-report
 
   deploy:

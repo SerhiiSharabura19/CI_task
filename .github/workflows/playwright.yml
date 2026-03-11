@@ -66,22 +66,70 @@ jobs:
           name: playwright-report-${{ matrix.name }}
           path: playwright-report
 
-  deploy:
+  merge-reports:
+    name: Merge reports
+    if: always()
     needs: test
     runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: TC-1
-            spec: tests/TC-1/signUp.spec.ts
-          - name: TC-12
-            spec: tests/TC-12/addProductsIntoCart.spec.ts
-          - name: TC-18
-            spec: tests/TC-18/viewCategoryProducts.spec.ts
-          - name: API
-            spec: tests/API/API.spec.ts
+    steps:
+      - name: Download all reports
+        uses: actions/download-artifact@v4
+        with:
+          pattern: playwright-report-*
+          path: all-reports
+
+      - name: Merge into a single folder
+        run: |
+          mkdir -p merged-report
+          for dir in all-reports/playwright-report-*/; do
+            name=$(basename "$dir")
+            mkdir -p "merged-report/${name}"
+            cp -r "$dir"* "merged-report/${name}/"
+          done
+
+      - name: Create index.html
+        run: |
+          cat <<'EOF' > merged-report/index.html
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="UTF-8">
+            <title>Playwright Test Reports</title>
+            <style>
+              body { font-family: sans-serif; max-width: 600px; margin: 60px auto; }
+              h1 { font-size: 1.5rem; margin-bottom: 24px; }
+              ul { list-style: none; padding: 0; }
+              li { margin: 12px 0; }
+              a { 
+                display: inline-block; padding: 10px 20px;
+                background: #0969da; color: white; border-radius: 6px;
+                text-decoration: none; font-size: 0.95rem;
+              }
+              a:hover { background: #0752ae; }
+            </style>
+          </head>
+          <body>
+            <h1>Playwright Test Reports</h1>
+            <ul>
+              <li><a href="playwright-report-TC-1/index.html">TC-1 — Sign Up</a></li>
+              <li><a href="playwright-report-TC-12/index.html">TC-12 — Add Products to Cart</a></li>
+              <li><a href="playwright-report-TC-18/index.html">TC-18 — View Category Products</a></li>
+              <li><a href="playwright-report-API/index.html">API — API Tests</a></li>
+            </ul>
+          </body>
+          </html>
+          EOF
+
+      - name: Upload merged report as GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: merged-report
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: merge-reports
+    runs-on: ubuntu-latest
 
     permissions:
       pages: write

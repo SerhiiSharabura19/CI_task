@@ -1,6 +1,6 @@
 import { generateUser, User } from '../../utils/genegateUser';
 import { validUserData } from '../../utils/userCredentialsDataset';
-import { test } from '../_fixtures/fixturePageManager';
+import { test } from '../_fixtures/fixtures';
 
 let user: User;
 
@@ -8,7 +8,7 @@ test.beforeEach(async () => {
   user = generateUser();
 });
 
-test('Successful Sign up of a user', async ({ pageManager }) => {
+test('Successful Sign up of a user', async ({ pageManager, killAds: _killAds }) => {
   await pageManager.onHomePage().open();
   await pageManager.onHomePage().clickSignUpLogin();
   await pageManager.onSignUpLoginPage().assertLogInFormTitle();

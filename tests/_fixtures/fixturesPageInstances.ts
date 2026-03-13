@@ -1,4 +1,4 @@
-import { test as base } from '@playwright/test';
+import { test as base, request } from '@playwright/test';
 import { HomePage } from '../../src/pages/HomePage';
 import { SignUpLoginPage } from '../../src/pages/SignupLoginPage';
 import { AccountInformationPage } from '../../src/pages/EnterAccountInformationPage';
@@ -6,6 +6,7 @@ import { AccountCreatedPage } from '../../src/pages/AccountCreatedPage';
 import { APIMethods } from '../../src/API/APImethods';
 import { ProductsPage } from '../../src/pages/ProductsPage';
 import { CartPage } from '../../src/pages/CartPage';
+import { PageManager } from '../../src/pages/PageManager';
 
 export const test = base.extend<{
   signUpLoginPage: SignUpLoginPage;
@@ -14,7 +15,8 @@ export const test = base.extend<{
   accountCreatedPage: AccountCreatedPage;
   apiMethods: APIMethods;
   productsPage: ProductsPage;
-  cartPage: CartPage; 
+  cartPage: CartPage;
+  pageManager: PageManager; 
 }>({
   signUpLoginPage: async ({ page }, use) => {
     const signUpLoginPage = new SignUpLoginPage(page);
@@ -50,6 +52,11 @@ export const test = base.extend<{
     const cartPage = new CartPage(page);
     
     await use(cartPage);
+  },
+  pageManager: async ({ page, request }, use) => {
+    const pageManager = new PageManager(page, request);
+    
+    await use(pageManager);
   }
 
 });

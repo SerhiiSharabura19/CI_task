@@ -29,3 +29,16 @@ Creatimg remote repository and pushing the project - 0.5h
 
 CI - 40min
 
+            Second round
+
+- added ES-Lint, Prettier - 30 min
+
+- set .env and moved API endpoints there - 40 min
+
+- used GitHub secrets for the API endpoints on CI - 30 min
+
+- applied parametrization in TC-1
+
+- set CI reporting with GitHub pages - 3h
+
+- made the "PageManager" branch and implemented the Page Manager approach there

@@ -38,7 +38,7 @@ test('TC-12: Add Products in Cart by logged out user', async ({ pageManager }) =
 
 test('TC-12: Add Products in Cart by logged in user', async ({
   user: _user,
-  killAds: _killAds,
+  removeAds: _removeAds,
   pageManager,
 }) => {
   await pageManager.onHomePage().open();

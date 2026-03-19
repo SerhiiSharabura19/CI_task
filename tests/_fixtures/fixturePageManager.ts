@@ -1,10 +1,10 @@
 import { test as base } from '@playwright/test';
-import { PageManager } from '../../src/pages/PageManager';
+import { PageManagerV2 } from '../../src/pages/PageManagerV2';
 
-export const test = base.extend<{ pageManager: PageManager }>({
-  pageManager: async ({ page, request }, use) => {
-    const pageManager = new PageManager(page, request);
+export const test = base.extend<{ pageManagerV2: PageManagerV2 }>({
+  pageManagerV2: async ({ page, request }, use) => {
+    const pageManagerV2 = new PageManagerV2(page, request);
 
-    await use(pageManager);
+    await use(pageManagerV2);
   },
 });

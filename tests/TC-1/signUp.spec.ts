@@ -8,40 +8,40 @@ test.beforeEach(async () => {
   user = generateUser();
 });
 
-test('Successful Sign up of a user', async ({ pageManager, removeAds: _removeAds }) => {
-  await pageManager.onHomePage().open();
-  await pageManager.onHomePage().clickSignUpLogin();
-  await pageManager.onSignUpLoginPage().assertLogInFormTitle();
-  await pageManager.onSignUpLoginPage().assertSignUpFormTitle();
-  await pageManager.onSignUpLoginPage().fillSignUpName(user.username);
-  await pageManager.onSignUpLoginPage().fillSignUpEmail(user.email);
-  await pageManager.onSignUpLoginPage().clickSignUpButton();
-  await pageManager.onAccountInformationPage().checkRadioBtn();
-  await pageManager.onAccountInformationPage().fillPasswordField(user.password);
-  await pageManager.onAccountInformationPage().selectRandomDay();
-  await pageManager.onAccountInformationPage().selectRandomMonth();
-  await pageManager.onAccountInformationPage().selectRandomYear();
-  await pageManager.onAccountInformationPage().checkSignUpForNewsLetter();
-  await pageManager.onAccountInformationPage().enterFirstName(user.firstName);
-  await pageManager.onAccountInformationPage().enterLastName(user.lastName);
-  await pageManager.onAccountInformationPage().enterAddress(user.address);
-  await pageManager.onAccountInformationPage().selectCountry();
-  await pageManager.onAccountInformationPage().enterState(user.state);
-  await pageManager.onAccountInformationPage().enterCity(user.city);
-  await pageManager.onAccountInformationPage().enterZipCode(user.zipCode);
-  await pageManager.onAccountInformationPage().enterMobileNumber(user.mobileNumber);
-  await pageManager.onAccountInformationPage().clickCreateAccount();
-  await pageManager.onAccountCreatedPage().assertTitleIsVisible();
-  await pageManager.onAccountCreatedPage().clickContinueBtn();
+test('Successful Sign up of a user', async ({ pageManagerV2, removeAds: _removeAds }) => {
+  await pageManagerV2.homePage.open();
+  await pageManagerV2.homePage.clickSignUpLogin();
+  await pageManagerV2.signUpLoginPage.assertLogInFormTitle();
+  await pageManagerV2.signUpLoginPage.assertSignUpFormTitle();
+  await pageManagerV2.signUpLoginPage.fillSignUpName(user.username);
+  await pageManagerV2.signUpLoginPage.fillSignUpEmail(user.email);
+  await pageManagerV2.signUpLoginPage.clickSignUpButton();
+  await pageManagerV2.accountInformationPage.checkRadioBtn();
+  await pageManagerV2.accountInformationPage.fillPasswordField(user.password);
+  await pageManagerV2.accountInformationPage.selectRandomDay();
+  await pageManagerV2.accountInformationPage.selectRandomMonth();
+  await pageManagerV2.accountInformationPage.selectRandomYear();
+  await pageManagerV2.accountInformationPage.checkSignUpForNewsLetter();
+  await pageManagerV2.accountInformationPage.enterFirstName(user.firstName);
+  await pageManagerV2.accountInformationPage.enterLastName(user.lastName);
+  await pageManagerV2.accountInformationPage.enterAddress(user.address);
+  await pageManagerV2.accountInformationPage.selectCountry();
+  await pageManagerV2.accountInformationPage.enterState(user.state);
+  await pageManagerV2.accountInformationPage.enterCity(user.city);
+  await pageManagerV2.accountInformationPage.enterZipCode(user.zipCode);
+  await pageManagerV2.accountInformationPage.enterMobileNumber(user.mobileNumber);
+  await pageManagerV2.accountInformationPage.clickCreateAccount();
+  await pageManagerV2.accountCreatedPage.assertTitleIsVisible();
+  await pageManagerV2.accountCreatedPage.clickContinueBtn();
 
-  await pageManager.onHomePage().assertLogoutLinkIsVisible();
+  await pageManagerV2.homePage.assertLogoutLinkIsVisible();
 });
 
 test.describe('Verify signup validation', () => {
   validUserData.forEach(({ userName, email, description }) => {
-    test(` of the email with ${description}`, async ({ pageManager }) => {
-      await pageManager.onSignUpLoginPage().open();
-      await pageManager.onSignUpLoginPage().verifyCredentials(userName, email);
+    test(` of the email with ${description}`, async ({ pageManagerV2 }) => {
+      await pageManagerV2.signUpLoginPage.open();
+      await pageManagerV2.signUpLoginPage.verifyCredentials(userName, email);
     });
   });
 });

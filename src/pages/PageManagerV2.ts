@@ -1,15 +1,15 @@
 import type { Page } from '@playwright/test';
-import { HomePage } from '../pages/HomePage';
-import { SignUpLoginPage } from '../pages/SignupLoginPage';
-import { AccountInformationPage } from '../pages/EnterAccountInformationPage';
-import { AccountCreatedPage } from '../pages/AccountCreatedPage';
-import { ProductsPage } from '../pages/ProductsPage';
-import { CartPage } from '../pages/CartPage';
-import { APIMethods } from '../../src/API/APImethods';
+import { HomePage } from './HomePage';
+import { SignUpLoginPage } from './SignupLoginPage';
+import { AccountInformationPage } from './EnterAccountInformationPage';
+import { AccountCreatedPage } from './AccountCreatedPage';
+import { ProductsPage } from './ProductsPage';
+import { CartPage } from './CartPage';
+import { APIMethods } from '../API/APImethods';
 import { APIRequestContext } from '@playwright/test';
 
-export class PageManager {
-  readonly homePage: HomePage;
+export class PageManagerV2 {
+  homePage: HomePage;
   readonly signUpLoginPage: SignUpLoginPage;
   readonly accountInformationPage: AccountInformationPage;
   readonly accountCreatedPage: AccountCreatedPage;

@@ -71,12 +71,14 @@ export class AccountInformationPage extends BasePage {
   async checkRadioBtn() {
     await test.step(`Check "Mr" radio button`, async () => {
       await this.mrRadioBtn.check();
+      return this;
     });
   }
 
   async fillPasswordField(password: string) {
     await test.step(`Fill in the password field`, async () => {
       await this.passwordField.fill(password);
+      return this;
     });
   }
 

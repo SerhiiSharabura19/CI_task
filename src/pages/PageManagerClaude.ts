@@ -5,48 +5,25 @@ import { AccountInformationPage } from '../pages/EnterAccountInformationPage';
 import { AccountCreatedPage } from '../pages/AccountCreatedPage';
 import { ProductsPage } from '../pages/ProductsPage';
 import { CartPage } from '../pages/CartPage';
+import { APIMethods } from '../../src/API/APImethods';
+import { APIRequestContext } from '@playwright/test';
 
 export class PageManager {
-  private readonly page: Page;
+  readonly homePage: HomePage;
+  readonly signUpLoginPage: SignUpLoginPage;
+  readonly accountInformationPage: AccountInformationPage;
+  readonly accountCreatedPage: AccountCreatedPage;
+  readonly apiMethods: APIMethods;
+  readonly productsPage: ProductsPage;
+  readonly cartPage: CartPage;
 
-  private _homePage: HomePage | null = null;
-  private _signUpLoginPage: SignUpLoginPage | null = null;
-  private _accountInformationPage: AccountInformationPage | null = null;
-  private _accountCreatedPage: AccountCreatedPage | null = null;
-  private _productsPage: ProductsPage | null = null;
-  private _cartPage: CartPage | null = null;
-
-  constructor(page: Page) {
-    this.page = page;
-  }
-
-  get homePage(): HomePage {
-    if (!this._homePage) this._homePage = new HomePage(this.page);
-    return this._homePage;
-  }
-
-  get signUpLoginPage(): SignUpLoginPage {
-    if (!this._signUpLoginPage) this._signUpLoginPage = new SignUpLoginPage(this.page);
-    return this._signUpLoginPage;
-  }
-
-  get accountInformationPage(): AccountInformationPage {
-    if (!this._accountInformationPage) this._accountInformationPage = new AccountInformationPage(this.page);
-    return this._accountInformationPage;
-  }
-
-  get accountCreatedPage(): AccountCreatedPage {
-    if (!this._accountCreatedPage) this._accountCreatedPage = new AccountCreatedPage(this.page);
-    return this._accountCreatedPage;
-  }
-
-  get productsPage(): ProductsPage {
-    if (!this._productsPage) this._productsPage = new ProductsPage(this.page);
-    return this._productsPage;
-  }
-
-  get cartPage(): CartPage {
-    if (!this._cartPage) this._cartPage = new CartPage(this.page);
-    return this._cartPage;
+  constructor(page: Page, request: APIRequestContext) {
+    this.homePage = new HomePage(page);
+    this.signUpLoginPage = new SignUpLoginPage(page);
+    this.accountInformationPage = new AccountInformationPage(page);
+    this.accountCreatedPage = new AccountCreatedPage(page);
+    this.apiMethods = new APIMethods(request);
+    this.productsPage = new ProductsPage(page);
+    this.cartPage = new CartPage(page);
   }
 }

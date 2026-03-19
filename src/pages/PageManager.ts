@@ -25,51 +25,44 @@ export class PageManager {
   }
 
   onSignUpLoginPage(): SignUpLoginPage {
-    if (!this.signUpLoginPage) {
-      this.signUpLoginPage = new SignUpLoginPage(this.page);
-    }
+    this.signUpLoginPage = new SignUpLoginPage(this.page);
+
     return this.signUpLoginPage;
   }
 
   onAccountInformationPage(): AccountInformationPage {
-    if (!this.accountInformationPage) {
-      this.accountInformationPage = new AccountInformationPage(this.page);
-    }
+    this.accountInformationPage = new AccountInformationPage(this.page);
+
     return this.accountInformationPage;
   }
 
   onHomePage(): HomePage {
-    if (!this.homePage) {
-      this.homePage = new HomePage(this.page);
-    }
+    this.homePage = new HomePage(this.page);
+
     return this.homePage;
   }
 
   onAccountCreatedPage(): AccountCreatedPage {
-    if (!this.accountCreatedPage) {
-      this.accountCreatedPage = new AccountCreatedPage(this.page);
-    }
+    this.accountCreatedPage = new AccountCreatedPage(this.page);
+
     return this.accountCreatedPage;
   }
 
   onAPIMethods(): APIMethods {
-    if (!this.apiMethods) {
-      this.apiMethods = new APIMethods(this.request);
-    }
+    this.apiMethods = new APIMethods(this.request);
+
     return this.apiMethods;
   }
 
   onProductsPage(): ProductsPage {
-    if (!this.productsPage) {
-      this.productsPage = new ProductsPage(this.page);
-    }
+    this.productsPage = new ProductsPage(this.page);
+
     return this.productsPage;
   }
 
   onCartPage(): CartPage {
-    if (!this.cartPage) {
-      this.cartPage = new CartPage(this.page);
-    }
+    this.cartPage = new CartPage(this.page);
+
     return this.cartPage;
   }
 }

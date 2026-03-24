@@ -1,4 +1,4 @@
-import { APIMethods } from '../API/APImethods';
+import { APIMethods } from '../pages/APImethods';
 import { APIRequestContext } from '@playwright/test';
 
 export class APImanager {

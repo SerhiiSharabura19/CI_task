@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import type { Page, Locator } from '@playwright/test';
-import { BasePage } from '../base/BasePage';
+import { BasePage } from './BasePage';
 
 export class AccountCreatedPage extends BasePage {
   readonly url: string;

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import type { Page, Locator } from '@playwright/test';
-import { categories } from '../../tests/data/categories';
-import { BasePage } from '../base/BasePage';
+import { categories } from '../tests/data/categories';
+import { BasePage } from './BasePage';
 
 export class HomePage extends BasePage {
   readonly loginLink: Locator;

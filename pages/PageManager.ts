@@ -6,7 +6,7 @@ import { AccountCreatedPage } from './AccountCreatedPage';
 import { ProductsPage } from './ProductsPage';
 import { CartPage } from './CartPage';
 
-export class PageManagerV2 {
+export class PageManager {
   homePage: HomePage;
   readonly signUpLoginPage: SignUpLoginPage;
   readonly accountInformationPage: AccountInformationPage;

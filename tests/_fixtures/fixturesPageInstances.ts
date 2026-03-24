@@ -1,12 +1,13 @@
 import { test as base, request } from '@playwright/test';
-import { HomePage } from '../../src/pages/HomePage';
-import { SignUpLoginPage } from '../../src/pages/SignupLoginPage';
-import { AccountInformationPage } from '../../src/pages/EnterAccountInformationPage';
-import { AccountCreatedPage } from '../../src/pages/AccountCreatedPage';
-import { APIMethods } from '../../src/API/APImethods';
-import { ProductsPage } from '../../src/pages/ProductsPage';
-import { CartPage } from '../../src/pages/CartPage';
-import { PageManagerV2 } from '../../src/pages/PageManagerV2';
+import { HomePage } from '../../pages/HomePage';
+import { SignUpLoginPage } from '../../pages/SignupLoginPage';
+import { AccountInformationPage } from '../../pages/EnterAccountInformationPage';
+import { AccountCreatedPage } from '../../pages/AccountCreatedPage';
+import { APIMethods } from '../../pages/APImethods';
+import { ProductsPage } from '../../pages/ProductsPage';
+import { CartPage } from '../../pages/CartPage';
+import { PageManager } from '../../pages/PageManager';
+import { APImanager } from '../../pages/APImanager';
 
 export const test = base.extend<{
   signUpLoginPage: SignUpLoginPage;
@@ -16,7 +17,9 @@ export const test = base.extend<{
   apiMethods: APIMethods;
   productsPage: ProductsPage;
   cartPage: CartPage;
-  pageManager: PageManagerV2; 
+  pageManager: PageManager; 
+  apiManager: APImanager;
+
 }>({
   signUpLoginPage: async ({ page }, use) => {
     const signUpLoginPage = new SignUpLoginPage(page);
@@ -54,9 +57,14 @@ export const test = base.extend<{
     await use(cartPage);
   },
   pageManager: async ({ page, request }, use) => {
-    const pageManager = new PageManagerV2(page, request);
+    const pageManager = new PageManager(page);
     
     await use(pageManager);
+  },
+  apiManager: async ({ request }, use) => {
+    const apiManager = new APImanager(request);
+    
+    await use(apiManager);
   }
 
 });

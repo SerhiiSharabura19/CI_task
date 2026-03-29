@@ -6,11 +6,16 @@ export default defineConfig({
 
   reporter: [
     ['list'],
-    ['html', { open: 'never' }]
+    [
+      '@testomatio/reporter/lib/adapter/playwright.js',
+      {
+        apiKey: process.env.TESTOMATIO_API_KEY,
+      },
+    ],
   ],
 
   use: {
-    baseURL: 'https://automationexercise.com',
+    baseURL: process.env.BASE_URL,
     testIdAttribute: 'data-qa',
     headless: true,
     launchOptions: {

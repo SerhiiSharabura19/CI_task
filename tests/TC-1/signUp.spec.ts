@@ -7,7 +7,7 @@ test.beforeEach(async () => {
   user = generateUser();
 });
 
-test('Successful Sign up of a user', async ({ pageManager, removeAds: _removeAds }) => {
+test('Successful Sign up of a user @Tabc5', async ({ pageManager, removeAds: _removeAds }) => {
   await pageManager.homePage.open();
   await pageManager.homePage.clickSignUpLogin();
   await pageManager.signUpLoginPage.assertLogInFormTitle();

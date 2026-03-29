@@ -1,0 +1,41 @@
+name: Playwright reporting
+on:
+  workflow_dispatch:
+    inputs:
+      grep:
+        description: 'tests to grep'
+        required: false
+        default: ''
+      run:
+        required: false
+      testomatio:
+        required: false
+      testomatio_url:
+        required: false
+
+jobs:
+  reporting:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup dependencies
+        run: npm i
+
+      - name: Playwright browser updates
+        run: npx playwright install --with-deps chromium  # 👈 more reliable in CI
+
+      - name: Run tests
+        run: npx playwright test --grep "${{ github.event.inputs.grep }}"
+        env:
+          TESTOMATIO: ${{ secrets.TESTOMATIO_API_KEY }}                   # API key
+          TESTOMATIO_RUN: ${{ github.event.inputs.run }}          # optional run ID
+          TESTOMATIO_URL: ${{ github.event.inputs.testomatio_url }} # optional custom URL

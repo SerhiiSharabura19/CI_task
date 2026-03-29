@@ -10,7 +10,7 @@ export class AccountCreatedPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.url = '/account_created';
-    this.title = page.getByTestId('account-created');
+    this.title = page.getByTestId('account-created1');
     this.continueBtn = page.getByTestId('continue-button');
   }
 

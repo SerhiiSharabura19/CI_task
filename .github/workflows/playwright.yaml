@@ -1,9 +1,9 @@
 name: Playwright reporting
 on:
   push:
-    branches: [main, master]
+    branches: [1stMatrixStrategy]
   pull_request:
-    branches: [main, master]
+    branches: [1stMatrixStrategy]
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true

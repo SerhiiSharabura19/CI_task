@@ -41,11 +41,12 @@ jobs:
           TESTOMATIO_URL: ${{ github.event.inputs.testomatio_url }}
 
   reporting:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Use Node.js 18
+      - name: Use Node.js 24
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 24.x

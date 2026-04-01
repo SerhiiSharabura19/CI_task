@@ -1,5 +1,9 @@
 name: Playwright reporting
 on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
   workflow_dispatch:
     inputs:
       grep:
@@ -13,29 +17,49 @@ on:
       testomatio_url:
         required: false
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
-  reporting:
+  test:
+    name: Run ${{ matrix.name }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [18.x]
+        include:
+          - name: Authentication
+            spec: tests/TC-1/signUp.spec.ts
+          - name: Customer Flows
+            spec: tests/TC-12/addProductsIntoCart.spec.ts tests/TC-18/viewCategoryProducts.spec.ts
+          - name: API
+            spec: tests/API/API.spec.ts
+    env:
+      PRODUCTS_LIST_ENDPOINT: ${{ secrets.PRODUCTS_LIST_ENDPOINT }}
+      BRANDS_LIST_ENDPOINT: ${{ secrets.BRANDS_LIST_ENDPOINT }}
+      VERIFY_LOGIN_ENDPOINT: ${{ secrets.VERIFY_LOGIN_ENDPOINT }}
     steps:
       - uses: actions/checkout@v3
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
 
       - name: Setup dependencies
         run: npm i
 
       - name: Playwright browser updates
-        run: npx playwright install --with-deps chromium  # 👈 more reliable in CI
+        run: npx playwright install --with-deps chromium
 
       - name: Run tests
-        run: npx playwright test --grep "${{ github.event.inputs.grep }}"
+        run: npx playwright test --grep "${{ github.event.inputs.grep }}" --project=chromium
         env:
-          TESTOMATIO: ${{ secrets.TESTOMATIO_API_KEY }}                   # API key
-          TESTOMATIO_RUN: ${{ github.event.inputs.run }}          # optional run ID
-          TESTOMATIO_URL: ${{ github.event.inputs.testomatio_url }} # optional custom URL
+          TESTOMATIO: ${{ secrets.TESTOMATIO_API_KEY }}
+          TESTOMATIO_RUN: ${{ github.event.inputs.run }}
+          TESTOMATIO_URL: ${{ github.event.inputs.testomatio_url }}
+
+  reporting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x

@@ -34,7 +34,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run tests
-        run: npx playwright test --grep "${{ github.event.inputs.grep }}" --project=chromium
+        run: npx playwright test ${{ matrix.spec }} --grep "${{ github.event.inputs.grep }}" --project=chromium
         env:
           TESTOMATIO: ${{ secrets.TESTOMATIO_API_KEY }}
           TESTOMATIO_RUN: ${{ github.event.inputs.run }}

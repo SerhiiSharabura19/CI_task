@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 import 'dotenv/config';
 
 export default defineConfig({
@@ -12,6 +12,13 @@ export default defineConfig({
         apiKey: process.env.TESTOMATIO,
       },
     ],
+  ],
+
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
   ],
 
   use: {

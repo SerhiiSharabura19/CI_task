@@ -1,41 +1,74 @@
 name: Playwright reporting
 on:
+  push:
+    branches: [main, master]
   workflow_dispatch:
-    inputs:
-      grep:
-        description: 'tests to grep'
-        required: false
-        default: ''
-      run:
-        required: false
-      testomatio:
-        required: false
-      testomatio_url:
-        required: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  reporting:
+  test:
+    name: Run ${{ matrix.name }}
     runs-on: ubuntu-latest
+
+    env:
+      PRODUCTS_LIST_ENDPOINT: ${{ secrets.PRODUCTS_LIST_ENDPOINT }}
+      BRANDS_LIST_ENDPOINT: ${{ secrets.BRANDS_LIST_ENDPOINT }}
+      VERIFY_LOGIN_ENDPOINT: ${{ secrets.VERIFY_LOGIN_ENDPOINT }}
+
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [24.x]
+        include:
+          - name: TC-1
+            spec: tests/TC-1/signUp.spec.ts
+          - name: TC-12
+            spec: tests/TC-12/addProductsIntoCart.spec.ts
+          - name: TC-18
+            spec: tests/TC-18/viewCategoryProducts.spec.ts
+          - name: API
+            spec: tests/API/API.spec.ts
+
+
+
+
+
     steps:
-      - uses: actions/checkout@v3
+          - uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
+          - uses: actions/setup-node@v4
+            with:
+              node-version: 24
 
-      - name: Setup dependencies
-        run: npm i
+          - name: Cache node modules
+            uses: actions/cache@v4
+            with:
+              path: node_modules
+              key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+              restore-keys: |
+                ${{ runner.os }}-node-
 
-      - name: Playwright browser updates
-        run: npx playwright install --with-deps chromium  # 👈 more reliable in CI
+          - name: Cache Playwright browsers
+            uses: actions/cache@v4
+            with:
+              path: ~/.cache/ms-playwright
+              key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+              restore-keys: |
+                ${{ runner.os }}-playwright-
 
-      - name: Run tests
-        run: npx playwright test --grep "${{ github.event.inputs.grep }}"
-        env:
-          TESTOMATIO: ${{ secrets.TESTOMATIO_API_KEY }}                   # API key
-          TESTOMATIO_RUN: ${{ github.event.inputs.run }}          # optional run ID
-          TESTOMATIO_URL: ${{ github.event.inputs.testomatio_url }} # optional custom URL
+          - run: npm ci
+
+          - run: npx playwright install --with-deps
+
+          - name: Run tests
+            run: npx playwright test ${{ matrix.spec }}
+
+
+            env:
+              TESTOMATIO: ${{ secrets.TESTOMATIO_API_KEY }}                   # API key
+              TESTOMATIO_RUN: ${{ github.event.inputs.run }}          # optional run ID
+              TESTOMATIO_URL: ${{ github.event.inputs.testomatio_url }} # optional custom URL
+
+
+         

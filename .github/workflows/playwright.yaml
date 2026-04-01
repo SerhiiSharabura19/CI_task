@@ -37,7 +37,7 @@ jobs:
       - name: Run tests
         run: npx playwright test ${{ matrix.spec }} --grep "${{ github.event.inputs.grep }}" --project=chromium
         env:
-          TESTOMATIO: ${{ secrets.TESTOMATIO_API_KEY }}
+          TESTOMATIO: ${{ secrets.TESTOMATIO }}
           TESTOMATIO_RUN: ${{ github.event.inputs.run }}
           TESTOMATIO_URL: ${{ github.event.inputs.testomatio_url }}
 

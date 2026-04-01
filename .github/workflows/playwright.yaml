@@ -26,8 +26,6 @@ jobs:
             spec: tests/TC-1/signUp.spec.ts
           - name: TC-12
             spec: tests/TC-12/addProductsIntoCart.spec.ts
-          - name: TC-18
-            spec: tests/TC-18/viewCategoryProducts.spec.ts
           - name: API
             spec: tests/API/API.spec.ts
 

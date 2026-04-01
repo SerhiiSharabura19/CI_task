@@ -16,6 +16,7 @@ jobs:
       PRODUCTS_LIST_ENDPOINT: ${{ secrets.PRODUCTS_LIST_ENDPOINT }}
       BRANDS_LIST_ENDPOINT: ${{ secrets.BRANDS_LIST_ENDPOINT }}
       VERIFY_LOGIN_ENDPOINT: ${{ secrets.VERIFY_LOGIN_ENDPOINT }}
+      BASE_URL: ${{ secrets.BASE_URL }}
 
     strategy:
       fail-fast: false

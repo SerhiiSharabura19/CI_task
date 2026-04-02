@@ -9,7 +9,7 @@ export default defineConfig({
     [
       '@testomatio/reporter/lib/adapter/playwright.js',
       {
-        apiKey: process.env.TESTOMATIO_API_KEY,
+        apiKey: process.env.TESTOMATIO,
       },
     ],
   ],

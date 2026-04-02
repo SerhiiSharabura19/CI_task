@@ -59,7 +59,7 @@ jobs:
           - name: Run tests
             run: npx playwright test ${{ matrix.spec }}
             env:
-              TESTOMATIO: ${{ secrets.TESTOMATIO_API_KEY }}                   # API key
+              TESTOMATIO: ${{ secrets.TESTOMATIO}}                   # API key
               TESTOMATIO_RUN: ${{ github.event.inputs.run }}          # optional run ID
               TESTOMATIO_URL: ${{ github.event.inputs.testomatio_url }} # optional custom URL
 

@@ -9,7 +9,7 @@ env:
 
 jobs:
   test:
-    name: Run all tests
+    name: It is a job name from the 12th row
     runs-on: ubuntu-latest
 
     env:
@@ -29,7 +29,7 @@ jobs:
 
       - run: npx playwright install --with-deps
 
-      - name: Run tests
+      - name: Monkey name for human
         run: npx playwright test
         env:
           TESTOMATIO: ${{ secrets.TESTOMATIO }}

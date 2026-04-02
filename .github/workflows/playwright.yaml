@@ -29,10 +29,6 @@ jobs:
           - name: API
             spec: tests/API/API.spec.ts
 
-
-
-
-
     steps:
           - uses: actions/checkout@v4
 
@@ -62,8 +58,6 @@ jobs:
 
           - name: Run tests
             run: npx playwright test ${{ matrix.spec }}
-
-
             env:
               TESTOMATIO: ${{ secrets.TESTOMATIO_API_KEY }}                   # API key
               TESTOMATIO_RUN: ${{ github.event.inputs.run }}          # optional run ID

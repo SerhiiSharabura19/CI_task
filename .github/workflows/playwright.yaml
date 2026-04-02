@@ -32,24 +32,6 @@ jobs:
       - name: Run tests
         run: npx playwright test
         env:
-          TESTOMATIO: ${{ secrets.TESTOMATIO_API_KEY }}
+          TESTOMATIO: ${{ secrets.TESTOMATIO }}
           TESTOMATIO_RUN: ${{ github.event.inputs.run }}
           TESTOMATIO_URL: ${{ github.event.inputs.testomatio_url }}
-
-  reporting:
-    name: Reporting
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-
-      - run: npm ci
-
-      - name: Publish report
-        run: npx playwright show-report
-        env:
-          TESTOMATIO: ${{ secrets.TESTOMATIO_API_KEY }}

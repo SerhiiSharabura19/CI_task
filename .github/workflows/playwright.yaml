@@ -1,7 +1,7 @@
 name: Single Job Strategy
 on:
   push:
-    branches: [main, master]
+    branches: [SingleJob]
   workflow_dispatch:
 
 env:

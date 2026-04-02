@@ -1,4 +1,4 @@
-name: Playwright reporting
+name: Single Job Strategy
 on:
   push:
     branches: [main, master]

@@ -23,7 +23,7 @@ env:
 
 jobs:
   test:
-    name: It is a job name from the 12th row
+    name: Tests with tags job
     runs-on: ubuntu-latest
 
     env:

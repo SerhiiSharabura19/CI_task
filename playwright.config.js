@@ -14,13 +14,28 @@ export default defineConfig({
     ],
   ],
 
+  project: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
+  ],
+
   use: {
     baseURL: process.env.BASE_URL,
     testIdAttribute: 'data-qa',
     headless: true,
     launchOptions: {
       args: [
-        '--disable-features=InterestFeedContentSuggestions',
+        '--disable-features=InterestFeedContentSuggestions', 'TranslateUI'
       ],
     },
   },

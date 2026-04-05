@@ -1,7 +1,7 @@
 import { test } from '../_fixtures/fixtures';
 import { products } from '../data/productAttributes';
 
-test('TC-12: Add Products in Cart by logged out user @Tabc7', async ({ pageManager }) => {
+test('TC-12: Add Products in Cart by logged out user @AddProduct', async ({ pageManager }) => {
   await pageManager.homePage.open();
   await pageManager.homePage.assertCarouselIsVisible();
   await pageManager.homePage.clickProductsLink();
@@ -41,7 +41,7 @@ test('TC-12: Add Products in Cart by logged out user @Tabc7', async ({ pageManag
     products.product2.total);
 });
 
-test('TC-12: Add Products in Cart by logged in user @Tabc8', async ({
+test('TC-12: Add Products in Cart by logged in user @AddProduct', async ({
   user: _user,
   removeAds: _removeAds,
   pageManager,

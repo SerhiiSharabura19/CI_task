@@ -3,6 +3,20 @@ on:
   push:
     branches: [SingleJob]
   workflow_dispatch:
+    inputs:
+        browser:
+          description: 'Browser'
+          required: true
+          default: 'chromium'
+          type: choice
+          options:
+            - chromium
+            - firefox
+            - webkit
+        tags:
+          description: 'Run tests with Tags'
+          required: false
+          type: string
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -30,7 +44,7 @@ jobs:
       - run: npx playwright install --with-deps
 
       - name: Monkey name for human
-        run: npx playwright test
+        run: npx playwright test --project=${{ inputs.browser }} --grep="${{ inputs.tags }}"
         env:
           TESTOMATIO: ${{ secrets.TESTOMATIO }}
           TESTOMATIO_RUN: ${{ github.event.inputs.run }}

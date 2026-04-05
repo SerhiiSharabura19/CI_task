@@ -14,7 +14,16 @@ export default defineConfig({
     ],
   ],
 
-  project: [
+  use: {
+    baseURL: process.env.BASE_URL,
+    testIdAttribute: 'data-qa',
+    headless: true,
+    launchOptions: {
+      args: [
+        '--disable-features=InterestFeedContentSuggestions', 'TranslateUI'
+      ],
+    },
+    project: [
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
@@ -28,15 +37,5 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
     },
   ],
-
-  use: {
-    baseURL: process.env.BASE_URL,
-    testIdAttribute: 'data-qa',
-    headless: true,
-    launchOptions: {
-      args: [
-        '--disable-features=InterestFeedContentSuggestions', 'TranslateUI'
-      ],
-    },
   },
 });

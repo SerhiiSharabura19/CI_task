@@ -1,6 +1,5 @@
-// tests/global.setup.ts
-import { test as setup } from '@playwright/test';
-import Database from 'better-sqlite3';
+import { test as setup, expect } from '@playwright/test';
+import { generateUser } from '../utils/genegateUser';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -8,34 +7,46 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DB_PATH = path.resolve(__dirname, '.data/users.db');
+const USER_PATH = path.resolve(__dirname, '.data/user.json');
 
-const mockUsers = [
-  { id: '1', name: 'John Snow', email: 'john.snow@winterfell.mail', password: 'dragon' },
-  { id: '2', name: 'Harry Potter', email: 'harry.potter@griffindor.mail', password: 'hat' },
-  { id: '3', name: 'Frodu Baggins', email: 'frodu.baggins@shire.mail', password: 'ring' },
-];
+setup('register a user via API', async ({ request }) => {
+  const user = generateUser();
 
-setup('create new database', async ({ }) => {
-  const dir = path.dirname(DB_PATH);
-  fs.mkdirSync(dir, { recursive: true });
+  const response = await request.post('https://automationexercise.com/api/createAccount', {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    form: {
+      name: user.username,
+      email: user.email,
+      password: user.password,
+      title: user.title,
+      firstname: user.firstName,
+      lastname: user.lastName,
+      address1: user.address,
+      country: user.country,
+      state: user.state,
+      city: user.city,
+      zipcode: user.zipCode,
+      mobile_number: user.mobileNumber,
+    },
+  });
 
-  const db = new Database(DB_PATH);
+  const body = await response.json();
+  console.log('Register response:', body);
+  expect(body.responseCode).toBe(201);
 
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS users (
-      id TEXT PRIMARY KEY,
-      name TEXT,
-      email TEXT,
-      password TEXT
-    )
-  `);
+  // Save user to file so teardown can read it
+  fs.mkdirSync(path.dirname(USER_PATH), { recursive: true });
+  fs.writeFileSync(USER_PATH, JSON.stringify(user, null, 2));
 
-  const insert = db.prepare('INSERT OR REPLACE INTO users VALUES (@id, @name, @email, @password)');
-  for (const user of mockUsers) {
-    insert.run(user);
-  }
+  const loginResponse = await request.post('https://automationexercise.com/api/verifyLogin', {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    form: {
+      email: user.email,
+      password: user.password,
+    },
+  });
 
-  db.close();
-  console.log('DB created at:', DB_PATH);
+  const loginBody = await loginResponse.json();
+  console.log('Login response:', loginBody);
+  expect(loginBody.responseCode).toBe(200);
 });

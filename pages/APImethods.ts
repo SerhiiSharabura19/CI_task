@@ -7,12 +7,15 @@ export class APIMethods {
   readonly productsListEndpoint: string;
   readonly brandsListEndpoint: string;
   readonly verifyLoginEndpoint: string;
+  readonly signUpEndpoint: string;
 
   constructor(request: APIRequestContext) {
     this.request = request;
     this.productsListEndpoint = process.env.PRODUCTS_LIST_ENDPOINT;
     this.brandsListEndpoint = process.env.BRANDS_LIST_ENDPOINT;
     this.verifyLoginEndpoint = process.env.VERIFY_LOGIN_ENDPOINT;
+    this.signUpEndpoint = process.env.SIGN_UP_USER_ENDPOINT;
+    this.deleteUserEndpoint = process.env.DELETE_USER_ENDPOINT;
   }
 
   async getAllProducts() {
@@ -20,6 +23,12 @@ export class APIMethods {
 
     return response;
   }
+
+  async signUpUser() {
+    const response = await this.request.post(this.signUpEndpoint);
+
+    return response;
+  }  
 
   async postToAllProductsList() {
     const response = await this.request.post(this.productsListEndpoint);

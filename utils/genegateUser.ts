@@ -5,8 +5,10 @@ export type User = {
   lastName: string;
   username: string;
   email: string;
+  title: string;
   password: string;
   address: string;
+  country: string;
   state: string;
   city: string;
   zipCode: string;
@@ -45,10 +47,12 @@ export function generateUser(): User {
     username: `${firstName}_${lastName}`.replaceAll(`'`, ''),
     email: faker.internet.email().toLowerCase(),
     password: faker.internet.password(),
+    title: 'Mr',
     address: faker.location.streetAddress() + zipCode + faker.company.name(),
+    country: faker.location.country(),
     state: faker.location.state(),
     city: faker.location.city(),
     zipCode,
     mobileNumber: faker.phone.number()
   };
-}
+};

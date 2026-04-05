@@ -9,35 +9,35 @@ export default defineConfig({
     [
       '@testomatio/reporter/lib/adapter/playwright.js',
       {
-        apiKey: process.env.TESTOMATIO_API_KEY,
+        apiKey: process.env.TESTOMATIO,
       },
     ],
   ],
 
   projects: [
     {
-      name: 'setup db',
+      name: 'register a user via API',
       testMatch: /global\.setup\.ts/,
-      teardown: 'cleanup db',
+      teardown: 'delete the user via API',
     },
     {
-      name: 'cleanup db',
+      name: 'delete the user via API',
       testMatch: /global\.teardown\.ts/,
     },
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      dependencies: ['setup db'],
+      dependencies: ['register a user via API'],
     },
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },
-    //   dependencies: ['setup db'],
+    //   dependencies: ['register a user via API'],
     // },
     // {
     //   name: 'webkit',
     //   use: { ...devices['Desktop Safari'] },
-    //   dependencies: ['setup db'],
+    //   dependencies: ['register a user via API'],
     // },
   ],
 

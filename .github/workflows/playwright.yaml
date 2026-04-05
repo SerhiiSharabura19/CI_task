@@ -1,4 +1,4 @@
-name: Single Job Strategy
+name: 🎯Single Job Strategy
 on:
   push:
     branches: [SingleJob]
@@ -43,7 +43,7 @@ jobs:
 
       - run: npx playwright install --with-deps
 
-      - name: Monkey name for human
+      - name: 🏃‍➡️ Run tests 
         run: npx playwright test --project=${{ inputs.browser }} --grep="${{ inputs.tags }}"
         env:
           TESTOMATIO: ${{ secrets.TESTOMATIO }}

@@ -1,16 +1,20 @@
-import { test, expect, APIResponse, APIRequestContext } from '@playwright/test';
+
+import { expect, APIResponse, APIRequestContext } from '@playwright/test';
+import { test } from '../tests/_fixtures/fixtures';
 import dotenv from 'dotenv';
 dotenv.config();
 
 export class APIMethods {
   readonly request: APIRequestContext;
+  response: APIResponse;
   readonly productsListEndpoint: string;
   readonly brandsListEndpoint: string;
   readonly verifyLoginEndpoint: string;
   readonly signUpEndpoint: string;
 
-  constructor(request: APIRequestContext) {
+  constructor(request: APIRequestContext, response: APIResponse) {
     this.request = request;
+    this.response = response;
     this.productsListEndpoint = process.env.PRODUCTS_LIST_ENDPOINT;
     this.brandsListEndpoint = process.env.BRANDS_LIST_ENDPOINT;
     this.verifyLoginEndpoint = process.env.VERIFY_LOGIN_ENDPOINT;
@@ -24,11 +28,28 @@ export class APIMethods {
     return response;
   }
 
-  async signUpUser() {
-    const response = await this.request.post(this.signUpEndpoint);
+  async signUpUser(user: Object) {
+    this.response = await this.request.post(this.signUpEndpoint);
+    this.response = await this.request.post(process.env.SIGN_UP_USER_ENDPOINT, {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    form: {user},
+  });
 
-    return response;
+  const body = await this.response.json();
+  console.log('Register response:', body);
+  expect(body.responseCode).toBe(201);
   }  
+
+  async loginUser(user: Object) {
+    const loginResponse = await this.request.post(process.env.LOGIN_ENDPOINT, {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    form: { user },
+  });
+
+  const loginBody = await loginResponse.json();
+  console.log('Login response:', loginBody);
+  expect(loginBody.responseCode).toBe(200);
+  }
 
   async postToAllProductsList() {
     const response = await this.request.post(this.productsListEndpoint);

@@ -11,7 +11,7 @@ const USER_PATH = path.resolve(__dirname, '.data/user.json');
 teardown('delete user via API', async ({ request }) => {
   const user = JSON.parse(fs.readFileSync(USER_PATH, 'utf-8'));
 
-  const response = await request.delete('https://automationexercise.com/api/deleteAccount', {
+  const response = await request.delete(process.env.DELETE_USER_ENDPOINT, {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     form: {
       email: user.email,

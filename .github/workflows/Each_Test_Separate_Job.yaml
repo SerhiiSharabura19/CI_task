@@ -1,7 +1,7 @@
 name: Each Test - Separate Job
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   workflow_dispatch:
 
 env:

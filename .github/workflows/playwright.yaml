@@ -1,4 +1,4 @@
-name: Playwright reporting
+name: Default Playwright Yaml File
 on:
   push:
     branches: [main, master]

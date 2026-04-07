@@ -44,7 +44,7 @@ jobs:
       - run: npx playwright install --with-deps
 
       - name: 🏃‍➡️ Run tests 
-        run: npx playwright test --project=${{ inputs.browser }} --grep="${{ inputs.tags }}"
+        run: npx playwright test --project=${{ inputs.browser || 'chromium' }} --grep="${{ inputs.tags || '' }}"
         env:
           TESTOMATIO: ${{ secrets.TESTOMATIO }}
           TESTOMATIO_RUN: ${{ github.event.inputs.run }}

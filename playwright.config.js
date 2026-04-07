@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 import 'dotenv/config';
 
 export default defineConfig({
@@ -9,9 +9,24 @@ export default defineConfig({
     [
       '@testomatio/reporter/lib/adapter/playwright.js',
       {
-        apiKey: process.env.TESTOMATIO,
+        apiKey: process.env.TESTOMATIO_API_KEY,
       },
     ],
+  ],
+
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
   ],
 
   use: {
@@ -20,7 +35,7 @@ export default defineConfig({
     headless: true,
     launchOptions: {
       args: [
-        '--disable-features=InterestFeedContentSuggestions',
+        '--disable-features=InterestFeedContentSuggestions,TranslateUI'
       ],
     },
   },

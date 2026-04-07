@@ -31,6 +31,9 @@ jobs:
       BRANDS_LIST_ENDPOINT: ${{ secrets.BRANDS_LIST_ENDPOINT }}
       VERIFY_LOGIN_ENDPOINT: ${{ secrets.VERIFY_LOGIN_ENDPOINT }}
       BASE_URL: ${{ secrets.BASE_URL }}
+      SIGN_UP_USER_ENDPOINT: ${{ secrets.SIGN_UP_USER_ENDPOINT }}
+      LOGIN_ENDPOINT: ${{ secrets.LOGIN_ENDPOINT }}
+      DELETE_USER_ENDPOINT: ${{ secrets.DELETE_USER_ENDPOINT }}
 
     steps:
       - uses: actions/checkout@v4

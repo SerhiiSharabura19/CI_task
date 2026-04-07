@@ -1,7 +1,7 @@
 name: Jobs by Features
 on:
   push:
-    branches: [main]
+    branches: [1stMatrixStrategy]
   workflow_dispatch:
 
 env:

@@ -1,7 +1,7 @@
-name: 🎯Single Job Strategy
+name: SetupTeardownAPI
 on:
   push:
-    branches: [SingleJob]
+    branches: [SetupTeardownAPI]
   workflow_dispatch:
     inputs:
         browser:

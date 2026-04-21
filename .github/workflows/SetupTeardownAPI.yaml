@@ -1,0 +1,54 @@
+name: SetupTeardownAPI
+on:
+  push:
+    branches: [SetupTeardownAPI]
+  workflow_dispatch:
+    inputs:
+        browser:
+          description: 'Browser'
+          required: true
+          default: 'chromium'
+          type: choice
+          options:
+            - chromium
+            - firefox
+            - webkit
+        tags:
+          description: 'Run tests with Tags'
+          required: false
+          type: string
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  test:
+    name: Tests with tags job
+    runs-on: ubuntu-latest
+
+    env:
+      PRODUCTS_LIST_ENDPOINT: ${{ secrets.PRODUCTS_LIST_ENDPOINT }}
+      BRANDS_LIST_ENDPOINT: ${{ secrets.BRANDS_LIST_ENDPOINT }}
+      VERIFY_LOGIN_ENDPOINT: ${{ secrets.VERIFY_LOGIN_ENDPOINT }}
+      BASE_URL: ${{ secrets.BASE_URL }}
+      SIGN_UP_USER_ENDPOINT: ${{ secrets.SIGN_UP_USER_ENDPOINT }}
+      LOGIN_ENDPOINT: ${{ secrets.LOGIN_ENDPOINT }}
+      DELETE_USER_ENDPOINT: ${{ secrets.DELETE_USER_ENDPOINT }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - run: npm ci
+
+      - run: npx playwright install --with-deps
+
+      - name: 🏃‍➡️ Run tests 
+        run: npx playwright test --project=${{ inputs.browser || 'chromium' }} --grep="${{ inputs.tags || '' }}"
+        env:
+          TESTOMATIO: ${{ secrets.TESTOMATIO }}
+          TESTOMATIO_RUN: ${{ github.event.inputs.run }}
+          TESTOMATIO_URL: ${{ github.event.inputs.testomatio_url }}

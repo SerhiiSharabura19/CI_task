@@ -10,6 +10,9 @@ export class SignUpLoginPage extends BasePage {
   readonly signUpEmail: Locator;
   readonly signUpButton: Locator;
   readonly accountInformationTitle: Locator;
+  readonly logInEmail: Locator;
+  readonly logInPassword: Locator;
+  readonly logInButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -18,7 +21,10 @@ export class SignUpLoginPage extends BasePage {
     this.loginFormTitle = page.locator('.login-form h2');
     this.signUpName = page.getByTestId('signup-name');
     this.signUpEmail = page.getByTestId('signup-email');
+    this.logInEmail = page.getByTestId('login-email');
+    this.logInPassword = page.getByTestId('login-password');
     this.signUpButton = page.getByTestId('signup-button');
+    this.logInButton = page.getByTestId('login-button');
     this.accountInformationTitle = page.locator('.title.text-center').nth(1);
   }
 
@@ -51,10 +57,28 @@ export class SignUpLoginPage extends BasePage {
       await this.signUpEmail.fill(email);
     });
   }
+  
+  async fillLogInEmail(email: string) {
+    await test.step('Fill in log-in email', async () => {
+      await this.logInEmail.fill(email);
+    });
+  }
+  
+  async fillPassword(password: string) {
+    await test.step('Fill in the password', async () => {
+      await this.logInPassword.fill(password);
+    });
+  }
 
   async clickSignUpButton() {
     await test.step('Click Sign up button', async () => {
       await this.signUpButton.click();
+    });
+  }
+  
+  async clickLoginButton() {
+    await test.step('Click Login button', async () => {
+      await this.logInButton.click();
     });
   }
 

@@ -3,8 +3,9 @@
   "devDependencies": {
     "@faker-js/faker": "^10.3.0",
     "@playwright/test": "^1.58.2",
-    "@testomatio/reporter": "^2.7.3",
-    "@types/node": "^25.3.5",
+    "@testomatio/reporter": "^2.7.6",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.5.2",
     "dotenv": "^17.3.1",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
@@ -14,5 +15,8 @@
   },
   "scripts": {
     "prepare": "husky install"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.8.0"
   }
 }

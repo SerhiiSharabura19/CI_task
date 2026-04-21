@@ -1,14 +1,7 @@
-<<<<<<<< HEAD:.github/workflows/SetupTeardownAPI.yaml
-name: SetupTeardownAPI
-on:
-  push:
-    branches: [SetupTeardownAPI]
-========
 name: SetupTeardownDatabase
 on:
   push:
     branches: [SetupTeardownDatabase]
->>>>>>>> SetupTeardownDatabase:.github/workflows/SetupTeardownDatabase.yaml
   workflow_dispatch:
     inputs:
         browser:

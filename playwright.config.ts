@@ -39,6 +39,14 @@ export default defineConfig({
     //   use: { ...devices['Desktop Safari'] },
     //   dependencies: ['register a user via API'],
     // },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
   ],
 
   use: {
@@ -52,3 +60,4 @@ export default defineConfig({
     },
   },
 });
+

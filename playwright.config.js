@@ -9,7 +9,7 @@ export default defineConfig({
     [
       '@testomatio/reporter/lib/adapter/playwright.js',
       {
-        apiKey: process.env.TESTOMATIO_API_KEY,
+        apiKey: process.env.TESTOMATIO,
       },
     ],
   ],
@@ -19,6 +19,7 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+<<<<<<< HEAD
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
@@ -27,6 +28,8 @@ export default defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
+=======
+>>>>>>> 1stMatrixStrategy
   ],
 
   use: {

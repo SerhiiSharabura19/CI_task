@@ -2,6 +2,7 @@ import { test as teardown } from './_fixtures/fixtures';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { DB_PATH } from './constants';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,4 +13,10 @@ teardown('delete user via API', async ({ apiManager }) => {
   await apiManager.apiMethods.deleteUser(user);
   // Clean up the file
   fs.rmSync(USER_PATH, { force: true });
+});
+
+teardown('delete database', async ({ }) => {
+  console.log('deleting test database...');
+  fs.rmSync(DB_PATH, { force: true });
+  console.log('Test database deleted.');
 });

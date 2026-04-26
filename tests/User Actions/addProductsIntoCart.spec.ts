@@ -41,7 +41,7 @@ test('TC-12: Add Products in Cart by logged out user @AddProduct', async ({ page
     products.product2.total);
 });
 
-test('TC-12: Add Products in Cart by logged in user @AddProduct', async ({
+test('Add Products in Cart by logged in user @AddProduct', async ({
   user: _user,
   removeAds: _removeAds,
   pageManager,

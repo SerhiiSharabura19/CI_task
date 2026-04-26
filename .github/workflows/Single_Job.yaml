@@ -1,7 +1,7 @@
-name: SetupTeardownAPI
+name: Setup/Teardown by PW docs
 on:
   push:
-    branches: [SetupTeardownAPI]
+    branches: [main]
   workflow_dispatch:
 
 env:

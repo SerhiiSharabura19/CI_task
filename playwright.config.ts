@@ -25,9 +25,13 @@ export default defineConfig({
       testMatch: /global\.teardown\.ts/,
     },
     {
-      name: 'chromium',
+      name: 'chromium with a logged in user',
       use: { ...devices['Desktop Chrome'] },
       dependencies: ['register a user via API'],
+    },
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
     },
     // {
     //   name: 'firefox',

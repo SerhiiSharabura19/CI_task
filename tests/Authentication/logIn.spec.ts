@@ -18,4 +18,7 @@ test('Successful Log in of a user @Login', async ({ pageManager, removeAds: _rem
   await pageManager.signUpLoginPage.fillLogInEmail(user.email);
   await pageManager.signUpLoginPage.fillPassword(user.password);
   await pageManager.signUpLoginPage.clickLoginButton();
+  
+  await pageManager.homePage.assertLogoutLinkIsVisible();
 });
+

@@ -6,17 +6,10 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const USER_PATH = path.resolve(__dirname, '.data/user.json');
-const DB_PATH = path.resolve(__dirname, '.data/users.db');
 
 teardown('delete user via API', async ({ apiManager }) => {
   const user = JSON.parse(fs.readFileSync(USER_PATH, 'utf-8'));
   await apiManager.apiMethods.deleteUser(user);
   // Clean up the file
   fs.rmSync(USER_PATH, { force: true });
-});
-
-teardown('delete database', async ({ }) => {
-  console.log('deleting test database...');
-  fs.rmSync(DB_PATH, { force: true });
-  console.log('Test database deleted.');
 });
